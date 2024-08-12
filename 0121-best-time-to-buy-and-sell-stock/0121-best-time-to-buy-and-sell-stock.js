@@ -8,11 +8,7 @@ const maxProfit = function(prices) {
 
   for (let i = 1; i < prices.length; i++) {
     if (minimum < prices[i]) {
-      const temp = prices[i] - minimum;
-      
-      if (temp > profit) {
-        profit = temp;
-      }
+      profit = Math.max(prices[i] - minimum, profit);
     } else {
       minimum = prices[i];
     }
