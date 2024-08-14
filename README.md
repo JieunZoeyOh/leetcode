@@ -35,4 +35,20 @@
 |  |
 | ------- |
 | [0125-valid-palindrome](https://github.com/JieunZoeyOh/leetcode/tree/master/0125-valid-palindrome) |
+## Tree
+|  |
+| ------- |
+| [0226-invert-binary-tree](https://github.com/JieunZoeyOh/leetcode/tree/master/0226-invert-binary-tree) |
+## Depth-First Search
+|  |
+| ------- |
+| [0226-invert-binary-tree](https://github.com/JieunZoeyOh/leetcode/tree/master/0226-invert-binary-tree) |
+## Breadth-First Search
+|  |
+| ------- |
+| [0226-invert-binary-tree](https://github.com/JieunZoeyOh/leetcode/tree/master/0226-invert-binary-tree) |
+## Binary Tree
+|  |
+| ------- |
+| [0226-invert-binary-tree](https://github.com/JieunZoeyOh/leetcode/tree/master/0226-invert-binary-tree) |
 <!---LeetCode Topics End-->
