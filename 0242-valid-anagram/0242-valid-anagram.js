@@ -3,29 +3,24 @@
  * @param {string} t
  * @return {boolean}
  */
-const getCharCounter = (s) => {
-  const counter = new Map();
-
-  for (const char of s) {
-    const count = counter.get(char);
-    counter.set(char, (count ?? 0) + 1)
-  }
-
-  return counter;
-};
-
 const isAnagram = (s, t) => {
-  const counterS = getCharCounter(s);
-  const counterT = getCharCounter(t);
+  if (s.length !== t.length) return false;
+
+  const counterS = new Map();
+  const counterT = new Map();
+
+  for (let i = 0; i < s.length; i++) {
+    counterS.set(s[i], (counterS.get(s[i]) ?? 0) + 1);
+    counterT.set(t[i], (counterT.get(t[i]) ?? 0) + 1);
+  }
 
   if (counterS.size !== counterT.size) return false;
 
   for (const [char, count] of counterS) {
-    if (count !== counterT.get(char)) {
+    if (counterT.get(char) !== count) {
       return false;
     }
   }
 
   return true;
 };
-
