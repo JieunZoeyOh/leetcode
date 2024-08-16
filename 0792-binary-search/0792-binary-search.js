@@ -4,19 +4,20 @@
  * @return {number}
  */
 const search = (nums, target) => {
-  return compare(0, nums.length - 1, nums, target);
-};
+  let startIndex = 0;
+  let endIndex = nums.length - 1;
 
-const compare = (startIndex, endIndex, nums, target) => {
-  const middleIndex = Math.ceil((startIndex + endIndex) / 2);
+  while (startIndex <= endIndex) {
+    const middleIndex = Math.ceil((startIndex + endIndex) / 2);
 
-  if (startIndex > endIndex) return -1;
-
-  if (nums[middleIndex] === target) {
-    return middleIndex;
-  } else if (nums[middleIndex] < target) {
-    return compare(middleIndex + 1, endIndex, nums, target);
-  } else {
-    return compare(startIndex, middleIndex - 1, nums, target);
+    if (nums[middleIndex] === target) {
+      return middleIndex;
+    } else if (nums[middleIndex] < target) {
+      startIndex = middleIndex + 1;
+    } else {
+      endIndex = middleIndex - 1;
+    }
   }
+
+  return -1;
 };
