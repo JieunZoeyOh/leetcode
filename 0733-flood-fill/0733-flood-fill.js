@@ -6,27 +6,24 @@
  * @return {number[][]}
  */
 const floodFill = (image, sr, sc, color) => {
-  const row = image.length;
-  const column = image[0].length;
-  const startPixelColor = image[sr][sc];
+    const originalColor = image[sr][sc];
 
-  const visitedList = Array.from({ length: row }, () => new Array(column).fill(false));
-  const stack = [[sr, sc]];
+    if (originalColor === color) return image;
 
-  while (stack.length > 0) {
-    const [x, y] = stack.pop();
+    const fillPixel = (row, col) => {
+        if (row < 0 || row >= image.length || col < 0 || col >= image[0].length || image[row][col] !== originalColor) {
+            return;
+        }
 
-    if (visitedList[x][y]) continue;
-    visitedList[x][y] = true;
+        image[row][col] = color;
 
-    if (image[x][y] !== startPixelColor) continue;
-    image[x][y] = color;
+        fillPixel(row - 1, col);
+        fillPixel(row + 1, col);
+        fillPixel(row, col - 1);
+        fillPixel(row, col + 1);
+    };
 
-    if (x - 1 >= 0 && !visitedList[x - 1][y]) stack.push([x - 1, y]);
-    if (y + 1 < column && !visitedList[x][y + 1]) stack.push([x, y + 1]);
-    if (y - 1 >= 0 && !visitedList[x][y - 1]) stack.push([x, y - 1]);
-    if (x + 1 < row && !visitedList[x + 1][y]) stack.push([x + 1, y]);
-  }
+    fillPixel(sr, sc);
 
-  return image;
+    return image;
 };
