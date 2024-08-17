@@ -22,10 +22,10 @@ const floodFill = (image, sr, sc, color) => {
     if (image[x][y] !== startPixelColor) continue;
     image[x][y] = color;
 
-    if (x - 1 >= 0) stack.push([x - 1, y]);
-    if (y + 1 < column) stack.push([x, y + 1]);
-    if (y - 1 >= 0) stack.push([x, y - 1]);
-    if (x + 1 < row) stack.push([x + 1, y]);
+    if (x - 1 >= 0 && !visitedList[x - 1][y]) stack.push([x - 1, y]);
+    if (y + 1 < column && !visitedList[x][y + 1]) stack.push([x, y + 1]);
+    if (y - 1 >= 0 && !visitedList[x][y - 1]) stack.push([x, y - 1]);
+    if (x + 1 < row && !visitedList[x + 1][y]) stack.push([x + 1, y]);
   }
 
   return image;
