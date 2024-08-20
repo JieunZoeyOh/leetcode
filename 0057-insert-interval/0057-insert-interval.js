@@ -8,7 +8,6 @@ const insert = (intervals, newInterval) => {
   let i = 0;
   const n = intervals.length;
 
-  
   while (i < n && intervals[i][1] < newInterval[0]) {
     result.push(intervals[i]);
     i++;
