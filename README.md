@@ -5,6 +5,7 @@
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/JieunZoeyOh/leetcode/tree/master/0001-two-sum) |
+| [0015-3sum](https://github.com/JieunZoeyOh/leetcode/tree/master/0015-3sum) |
 | [0053-maximum-subarray](https://github.com/JieunZoeyOh/leetcode/tree/master/0053-maximum-subarray) |
 | [0057-insert-interval](https://github.com/JieunZoeyOh/leetcode/tree/master/0057-insert-interval) |
 | [0121-best-time-to-buy-and-sell-stock](https://github.com/JieunZoeyOh/leetcode/tree/master/0121-best-time-to-buy-and-sell-stock) |
@@ -51,6 +52,7 @@
 ## Two Pointers
 |  |
 | ------- |
+| [0015-3sum](https://github.com/JieunZoeyOh/leetcode/tree/master/0015-3sum) |
 | [0125-valid-palindrome](https://github.com/JieunZoeyOh/leetcode/tree/master/0125-valid-palindrome) |
 | [0141-linked-list-cycle](https://github.com/JieunZoeyOh/leetcode/tree/master/0141-linked-list-cycle) |
 ## Tree
@@ -81,6 +83,7 @@
 ## Sorting
 |  |
 | ------- |
+| [0015-3sum](https://github.com/JieunZoeyOh/leetcode/tree/master/0015-3sum) |
 | [0242-valid-anagram](https://github.com/JieunZoeyOh/leetcode/tree/master/0242-valid-anagram) |
 | [1014-k-closest-points-to-origin](https://github.com/JieunZoeyOh/leetcode/tree/master/1014-k-closest-points-to-origin) |
 ## Binary Search
