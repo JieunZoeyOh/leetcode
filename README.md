@@ -9,6 +9,7 @@
 | [0053-maximum-subarray](https://github.com/JieunZoeyOh/leetcode/tree/master/0053-maximum-subarray) |
 | [0057-insert-interval](https://github.com/JieunZoeyOh/leetcode/tree/master/0057-insert-interval) |
 | [0121-best-time-to-buy-and-sell-stock](https://github.com/JieunZoeyOh/leetcode/tree/master/0121-best-time-to-buy-and-sell-stock) |
+| [0150-evaluate-reverse-polish-notation](https://github.com/JieunZoeyOh/leetcode/tree/master/0150-evaluate-reverse-polish-notation) |
 | [0542-01-matrix](https://github.com/JieunZoeyOh/leetcode/tree/master/0542-01-matrix) |
 | [0733-flood-fill](https://github.com/JieunZoeyOh/leetcode/tree/master/0733-flood-fill) |
 | [0792-binary-search](https://github.com/JieunZoeyOh/leetcode/tree/master/0792-binary-search) |
@@ -34,6 +35,7 @@
 |  |
 | ------- |
 | [0020-valid-parentheses](https://github.com/JieunZoeyOh/leetcode/tree/master/0020-valid-parentheses) |
+| [0150-evaluate-reverse-polish-notation](https://github.com/JieunZoeyOh/leetcode/tree/master/0150-evaluate-reverse-polish-notation) |
 | [0232-implement-queue-using-stacks](https://github.com/JieunZoeyOh/leetcode/tree/master/0232-implement-queue-using-stacks) |
 ## Linked List
 |  |
@@ -114,6 +116,7 @@
 ## Math
 |  |
 | ------- |
+| [0150-evaluate-reverse-polish-notation](https://github.com/JieunZoeyOh/leetcode/tree/master/0150-evaluate-reverse-polish-notation) |
 | [1014-k-closest-points-to-origin](https://github.com/JieunZoeyOh/leetcode/tree/master/1014-k-closest-points-to-origin) |
 ## Geometry
 |  |
