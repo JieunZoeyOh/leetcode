@@ -54,6 +54,7 @@
 |  |
 | ------- |
 | [0053-maximum-subarray](https://github.com/JieunZoeyOh/leetcode/tree/master/0053-maximum-subarray) |
+| [0070-climbing-stairs](https://github.com/JieunZoeyOh/leetcode/tree/master/0070-climbing-stairs) |
 | [0121-best-time-to-buy-and-sell-stock](https://github.com/JieunZoeyOh/leetcode/tree/master/0121-best-time-to-buy-and-sell-stock) |
 | [0322-coin-change](https://github.com/JieunZoeyOh/leetcode/tree/master/0322-coin-change) |
 | [0542-01-matrix](https://github.com/JieunZoeyOh/leetcode/tree/master/0542-01-matrix) |
@@ -124,6 +125,7 @@
 ## Math
 |  |
 | ------- |
+| [0070-climbing-stairs](https://github.com/JieunZoeyOh/leetcode/tree/master/0070-climbing-stairs) |
 | [0150-evaluate-reverse-polish-notation](https://github.com/JieunZoeyOh/leetcode/tree/master/0150-evaluate-reverse-polish-notation) |
 | [1014-k-closest-points-to-origin](https://github.com/JieunZoeyOh/leetcode/tree/master/1014-k-closest-points-to-origin) |
 ## Geometry
@@ -176,4 +178,8 @@
 |  |
 | ------- |
 | [0238-product-of-array-except-self](https://github.com/JieunZoeyOh/leetcode/tree/master/0238-product-of-array-except-self) |
+## Memoization
+|  |
+| ------- |
+| [0070-climbing-stairs](https://github.com/JieunZoeyOh/leetcode/tree/master/0070-climbing-stairs) |
 <!---LeetCode Topics End-->
