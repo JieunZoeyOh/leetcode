@@ -1,16 +1,15 @@
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-const twoSum = function(nums, target) {
-  for (let i = 0; i < nums.length; i++) {
-    const currentNum = nums[i];
-    const complement = target - currentNum;
-    const complementIndex = nums.indexOf(complement, i + 1);
+const twoSum = (nums, target) => {
+  const maps = new Map();
 
-    if (complementIndex !== -1) {
-      return [i, complementIndex];
+  for (let i = 0; i < nums.length; i++) {
+    maps.set(nums[i], i);
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    const difference = target - nums[i];
+    const index = maps.get(difference);
+    if (index && i !== index) {
+      return [i, index];
     }
   }
 };
