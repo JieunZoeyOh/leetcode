@@ -4,18 +4,17 @@
  * @return {number}
  */
 const search = (nums, target) => {
-  let startIndex = 0;
-  let endIndex = nums.length - 1;
+  let left = 0;
+  let right = nums.length - 1;
 
-  while (startIndex <= endIndex) {
-    const middleIndex = Math.ceil((startIndex + endIndex) / 2);
+  while (left <= right) {
+    const mid = Math.ceil((left + right) / 2);
+    if (nums[mid] === target) return mid;
 
-    if (nums[middleIndex] === target) {
-      return middleIndex;
-    } else if (nums[middleIndex] < target) {
-      startIndex = middleIndex + 1;
+    if (nums[mid] < target) {
+      left = mid + 1;
     } else {
-      endIndex = middleIndex - 1;
+      right = mid - 1;
     }
   }
 
