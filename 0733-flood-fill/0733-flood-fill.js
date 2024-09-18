@@ -1,29 +1,35 @@
+const DIRECTIONS = [[0, -1], [0, 1], [1, 0], [-1, 0]];
+
 /**
  * @param {number[][]} image
- * @param {number} sr
- * @param {number} sc
+ * @param {number} st - start row
+ * @param {number} sc - start column
  * @param {number} color
  * @return {number[][]}
  */
 const floodFill = (image, sr, sc, color) => {
-    const originalColor = image[sr][sc];
+  const originalColor = image[sr][sc];
 
-    if (originalColor === color) return image;
+  if (color === originalColor) return image;
 
-    const fillPixel = (row, col) => {
-        if (row < 0 || row >= image.length || col < 0 || col >= image[0].length || image[row][col] !== originalColor) {
-            return;
+  const dfs = (row, column) => {
+    if (image[row][column] !== originalColor) return;
+
+    image[row][column] = color;
+
+    for (const [r, c] of DIRECTIONS) {
+      const newRow = row + r;
+      const newColumn = column + c;
+
+      if (0 <= newRow && newRow < image.length && 0 <= newColumn && newColumn < image[0].length) {
+        if (image[newRow][newColumn] === originalColor) {
+          dfs(newRow, newColumn);
         }
+      }
+    }
+  };
 
-        image[row][col] = color;
+  dfs(sr, sc);
 
-        fillPixel(row - 1, col);
-        fillPixel(row + 1, col);
-        fillPixel(row, col - 1);
-        fillPixel(row, col + 1);
-    };
-
-    fillPixel(sr, sc);
-
-    return image;
+  return image;
 };
