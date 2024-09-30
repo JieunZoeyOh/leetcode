@@ -5,15 +5,15 @@
  */
 const insert = (intervals, newInterval) => {
   const result = [];
+  const len = intervals.length;
   let i = 0;
-  const n = intervals.length;
 
-  while (i < n && intervals[i][1] < newInterval[0]) {
+  while (i < len && intervals[i][1] < newInterval[0]) {
     result.push(intervals[i]);
     i++;
   }
 
-  while (i < n && intervals[i][0] <= newInterval[1]) {
+  while (i < len && intervals[i][0] <= newInterval[1]) {
     newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
     newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
     i++;
@@ -21,7 +21,7 @@ const insert = (intervals, newInterval) => {
 
   result.push(newInterval);
 
-  while (i < n) {
+  while (i < len) {
     result.push(intervals[i]);
     i++;
   }
