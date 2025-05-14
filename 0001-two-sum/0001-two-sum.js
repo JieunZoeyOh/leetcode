@@ -1,15 +1,35 @@
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
 const twoSum = (nums, target) => {
-  const maps = new Map();
+  const map = new Map();
 
   for (let i = 0; i < nums.length; i++) {
-    maps.set(nums[i], i);
-  }
+    const diff = target - nums[i];
 
-  for (let i = 0; i < nums.length; i++) {
-    const difference = target - nums[i];
-    const index = maps.get(difference);
-    if (index && i !== index) {
-      return [i, index];
+    if (map.has(diff)) {
+      return [i, map.get(diff)];
     }
+
+    map.set(nums[i], i);
   }
 };
+
+// const twoSum = (nums, target) => {
+//   const map = new Map();
+
+//   for (let i = 0; i < nums.length; i++) {
+//     map.set(nums[i], i);
+//   }
+
+//   for (let i = 0; i < nums.length; i++) {
+//     const diff = target - nums[i];
+//     const diffIndex = map.get(diff);
+
+//     if (diffIndex !== undefined && diffIndex !== i) {
+//       return [i, diffIndex];
+//     }
+//   }
+// };
