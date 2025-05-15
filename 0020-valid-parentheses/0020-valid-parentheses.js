@@ -1,29 +1,25 @@
+const bracket = {
+  "(": ")",
+  "[": "]",
+  "{": "}",
+}
+
 /**
  * @param {string} s
  * @return {boolean}
  */
-const bracketPairs = {
-  "(": ")",
-  "{": "}",
-  "[": "]",
-};
+const isValid = (s) => {
+  const arr = [];
 
-const isValid = function(s) {
-  const stack = [];
-
-  for (let i = 0; i < s.length; i++) {
-    const openingBracket = bracketPairs[s[i]];
-
-    if (openingBracket) {
-      stack.push(openingBracket);
+  for (const char of s) {
+    if (char in bracket) {
+      arr.push(char);
     } else {
-      const closedBracket = stack.pop();
-
-      if (closedBracket !== s[i]) {
-        return false;
-      }
+      const last = arr.pop();
+      if (bracket[last] === char) continue;
+      return false;
     }
   }
 
-  return stack.length === 0;
+  return arr.length === 0;
 };
