@@ -1,4 +1,4 @@
-const isAlphabet = (char) => {
+const isAlphanumeric = (char) => {
   return 'a' <= char && char <= 'z' || 'A' <= char && char <= 'Z' || '0' <= char && char <= '9';
 }
 
@@ -11,19 +11,8 @@ const isPalindrome = (s) => {
   let right = s.length - 1;
 
   while (left <= right) {
-    while (left < s.length) {
-      if (isAlphabet(s[left])) {
-        break;
-      }
-      left++;
-    }
-
-    while (right > 0) {
-      if (isAlphabet(s[right])) {
-        break;
-      }
-      right--;
-    }
+    while (left < s.length && !isAlphanumeric(s[left])) left++;
+    while (0 <= right && !isAlphanumeric(s[right])) right--;
 
     if (left > right) return true;
     if (s[left].toLowerCase() !== s[right].toLowerCase()) return false;
