@@ -4,15 +4,15 @@
  * @return {boolean}
  */
 const isAnagram = (s, t) => {
+  if (s.length !== t.length) return false;
+
   const sMap = countWord(s);
   const tMap = countWord(t);
 
   if (sMap.size !== tMap.size) return false;
 
   for (const [key, value] of sMap.entries()) {
-    if (value !== tMap.get(key)) {
-      return false;
-    }
+    if (value !== tMap.get(key)) return false;
   }
 
   return true;
