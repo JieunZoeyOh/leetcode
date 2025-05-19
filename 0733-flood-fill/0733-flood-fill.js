@@ -1,35 +1,39 @@
-const DIRECTIONS = [[0, -1], [0, 1], [1, 0], [-1, 0]];
-
 /**
  * @param {number[][]} image
- * @param {number} st - start row
- * @param {number} sc - start column
+ * @param {number} sr
+ * @param {number} sc
  * @param {number} color
  * @return {number[][]}
  */
 const floodFill = (image, sr, sc, color) => {
   const originalColor = image[sr][sc];
+  const queue = [[sr, sc]];
+  const rowLength = image.length;
+  const columnLength = image[0].length;
 
-  if (color === originalColor) return image;
+  while (queue.length) {
+    const [row, column] = queue.shift();
 
-  const dfs = (row, column) => {
-    if (image[row][column] !== originalColor) return;
+    if (image[row][column] === color) continue;
 
     image[row][column] = color;
 
-    for (const [r, c] of DIRECTIONS) {
-      const newRow = row + r;
-      const newColumn = column + c;
-
-      if (0 <= newRow && newRow < image.length && 0 <= newColumn && newColumn < image[0].length) {
-        if (image[newRow][newColumn] === originalColor) {
-          dfs(newRow, newColumn);
-        }
-      }
+    if (row - 1 >= 0 && image[row - 1][column] === originalColor) {
+      queue.push([row - 1, column]);
     }
-  };
 
-  dfs(sr, sc);
+    if (row + 1 < rowLength && image[row + 1][column] === originalColor) {
+      queue.push([row + 1, column]);
+    }
+
+    if (column - 1 >= 0 && image[row][column - 1] === originalColor) {
+      queue.push([row, column - 1]);
+    }
+
+    if (column + 1 < columnLength && image[row][column + 1] === originalColor) {
+      queue.push([row, column + 1]);
+    }
+  }
 
   return image;
 };
