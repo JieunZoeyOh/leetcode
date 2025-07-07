@@ -4,27 +4,24 @@
  * @return {number[][]}
  */
 const insert = (intervals, newInterval) => {
-  const listSize = intervals.length;
-  const result = [];
-  let i = 0;
-  
-  while (i < listSize && intervals[i][1] < newInterval[0]) {
-    result.push(intervals[i]);
-    i++;
+  const result = [[...newInterval]];
+  const intervalArr = [...intervals];
+
+  while (intervalArr.length > 0) {
+    const [is, ie] = intervalArr.shift();
+    const [ts, te] = result.pop();
+
+    if (ie < ts) {
+      result.push([is, ie]);
+      result.push([ts, te]);
+    } else if (te < is) {
+      result.push([ts, te]);
+      result.push([is, ie]);
+      break;
+    } else {
+      result.push([Math.min(is, ts), Math.max(ie, te)]);
+    }
   }
 
-  while(i < listSize && intervals[i][0] <= newInterval[1]) {
-    newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
-    newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
-    i++;
-  }
-
-  result.push(newInterval);
-
-  while (i < listSize) {
-    result.push(intervals[i]);
-    i++;
-  }
-
-  return result;
+  return [...result, ...intervalArr];
 };
