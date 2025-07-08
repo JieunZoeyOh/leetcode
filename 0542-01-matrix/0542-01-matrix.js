@@ -1,4 +1,4 @@
-const DIRECTIONS = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+const DIRECTIONS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
 /**
  * @param {number[][]} mat
@@ -7,33 +7,31 @@ const DIRECTIONS = [[-1, 0], [0, 1], [1, 0], [0, -1]];
 const updateMatrix = (mat) => {
   const rowLength = mat.length;
   const columnLength = mat[0].length;
-  const arr = Array.from({ length: rowLength }, () => Array(columnLength).fill(Infinity));
-  const memory = [];
+  const result = Array.from({ length: rowLength }, () => Array(columnLength).fill(Infinity));
+  const queue = [];
+  let pointer = 0;
 
   for (let i = 0; i < rowLength; i++) {
     for (let j = 0; j < columnLength; j++) {
       if (mat[i][j] === 0) {
-        arr[i][j] = 0;
-        memory.push([i, j]);
+        result[i][j] = 0;
+        queue.push([i, j]);
       }
     }
   }
 
-  while (memory.length > 0) {
-    const [x, y] = memory.shift();
+  while (pointer < queue.length) {
+    const [dx, dy] = queue[pointer++];
+    const value = result[dx][dy];
 
-    for (const [dx, dy] of DIRECTIONS) {
-      const nx = x + dx;
-      const ny = y + dy;
-
-      if (0 <= nx && nx < rowLength && 0 <= ny && ny < columnLength) {
-        if (arr[nx][ny] > arr[x][y] + 1) {
-          arr[nx][ny] = arr[x][y] + 1;
-          memory.push([nx, ny]);
-        }
+    for (const [x, y] of DIRECTIONS) {
+      const [nx, ny] = [dx + x, dy + y];
+      if (0 <= nx && nx < rowLength && 0 <= ny && ny < columnLength && result[nx][ny] > value + 1) {
+        result[nx][ny] = value + 1;
+        queue.push([nx, ny]);
       }
     }
   }
 
-  return arr;
+  return result;
 };
