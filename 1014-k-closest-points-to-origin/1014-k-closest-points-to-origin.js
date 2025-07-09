@@ -4,7 +4,8 @@
  * @return {number[][]}
  */
 const kClosest = (points, k) => {
-  return points
-    .toSorted(([x1, y1], [x2, y2]) => (x1 ** 2 + y1 ** 2) - (x2 ** 2 + y2 ** 2))
+  const arr = [...points];
+  return arr
+    .sort((a, b) => (a[0] ** 2 + a[1] ** 2) - (b[0] ** 2 + b[1] ** 2))
     .slice(0, k);
 };
