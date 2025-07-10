@@ -11,17 +11,19 @@
  * @return {boolean}
  */
 const isBalanced = (root) => {
-  if (!root) return true;
-
-  return recursive(root) !== -1;
+  return getHeight(root) !== -1;
 };
 
-const recursive = (node) => {
-  const leftDepth = node.left ? recursive(node.left) : 0;
-  const rightDepth = node.right ? recursive(node.right) : 0;
+const getHeight = (node) => {
+  if (!node) return 0;
 
-  if (leftDepth === -1 || rightDepth === -1) return -1;
-  if (Math.abs(leftDepth - rightDepth) > 1) return -1;
+  let left = getHeight(node.left);
+  if (left === -1) return -1;
 
-  return Math.max(leftDepth, rightDepth) + 1;
+  let right = getHeight(node.right);
+  if (right === -1) return -1;
+
+  if (Math.abs(left - right) > 1) return -1;
+
+  return Math.max(left, right) + 1;
 };
