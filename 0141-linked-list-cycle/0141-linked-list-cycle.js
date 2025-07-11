@@ -10,15 +10,18 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-const hasCycle = (head) => {
-  const memory = new Set();
-  let node = head;
+const hasCycle = (head) => { // constant memory
+  if (!head || !head.next) return false;
 
-  while (node) {
-    if (memory.has(node)) return true;
-    memory.add(node);
-    node = node.next;
+  let slow = head;
+  let fast = head.next;
+
+  while (slow !== fast) {
+    if (!fast || !fast.next) return false;
+
+    slow = slow.next;
+    fast = fast.next.next;
   }
 
-  return false;
+  return true;
 };
