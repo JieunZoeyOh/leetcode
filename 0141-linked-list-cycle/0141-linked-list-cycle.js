@@ -11,19 +11,13 @@
  * @return {boolean}
  */
 const hasCycle = (head) => {
-  let currentNode = head;
-  const nodeToNextMap = new Map();
+  const memory = new Set();
+  let node = head;
 
-  while (currentNode) {
-    const recordedNextNode = nodeToNextMap.get(currentNode);
-
-    if (recordedNextNode) {
-      return recordedNextNode === currentNode.next;
-    } else {
-      nodeToNextMap.set(currentNode, currentNode.next);
-    }
-
-    currentNode = currentNode.next;
+  while (node) {
+    if (memory.has(node)) return true;
+    memory.add(node);
+    node = node.next;
   }
 
   return false;
