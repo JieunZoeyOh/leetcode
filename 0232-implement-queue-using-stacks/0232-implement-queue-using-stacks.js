@@ -1,7 +1,6 @@
-
-const MyQueue = function() {
-  this.stack1 = [];
-  this.stack2 = [];
+var MyQueue = function() {
+  this.q1 = [];
+  this.q2 = [];
 };
 
 /** 
@@ -9,38 +8,43 @@ const MyQueue = function() {
  * @return {void}
  */
 MyQueue.prototype.push = function(x) {
-  this.stack1.push(x);
+  this.q1.push(x);
 };
 
 /**
  * @return {number}
  */
 MyQueue.prototype.pop = function() {
-  while (this.stack1.length > 0) {
-    this.stack2.push(this.stack1.pop());
+  if (this.q2.length === 0) {
+    this._transfer();
   }
-
-  const returnValue = this.stack2.pop();
-
-  while (this.stack2.length > 0) {
-    this.stack1.push(this.stack2.pop());
-  }
-
-  return returnValue;
+  return this.q2.pop();
 };
 
 /**
  * @return {number}
  */
 MyQueue.prototype.peek = function() {
-  return this.stack1[0];
+  if (this.q2.length === 0) {
+    this._transfer();
+  }
+  return this.q2[this.q2.length - 1];
 };
 
 /**
  * @return {boolean}
  */
 MyQueue.prototype.empty = function() {
-  return this.stack1.length === 0;
+  return this.q1.length === 0 && this.q2.length === 0;
+};
+
+/**
+ * @return {void}
+ */
+MyQueue.prototype._transfer = function() {
+  while (this.q1.length > 0) {
+    this.q2.push(this.q1.pop());
+  }
 };
 
 /** 
@@ -51,3 +55,4 @@ MyQueue.prototype.empty = function() {
  * var param_3 = obj.peek()
  * var param_4 = obj.empty()
  */
+ 
