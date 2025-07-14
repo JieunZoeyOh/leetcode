@@ -4,19 +4,17 @@
  * @return {boolean}
  */
 const canConstruct = (ransomNote, magazine) => {
-  if (magazine.length < ransomNote.length) return false;
+  const map = new Map();
 
-  const counter = new Map();
-  for (const char of magazine) {
-    counter.set(char, (counter.get(char) || 0) + 1);
+  for (const word of magazine) {
+    const count = map.get(word) || 0;
+    map.set(word, count + 1);
   }
 
-  for (const char of ransomNote) {
-    const count = counter.get(char);
-
+  for (const word of ransomNote) {
+    const count = map.get(word);
     if (!count) return false;
-
-    counter.set(char, count - 1);
+    map.set(word, count - 1);
   }
 
   return true;
