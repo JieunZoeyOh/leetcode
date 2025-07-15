@@ -3,31 +3,21 @@
  * @return {number}
  */
 const lengthOfLongestSubstring = (s) => {
-  const memory = new Map();
-  let length = 0;
-  let maxLength = 0;
+  const set = new Set();
+  let left = 0;
+  let right = 0;
+  let max = 0;
 
-  for (let i = 0; i < s.length; i++) {
-    const char = s[i];
-    const prevIndex = memory.get(char);
-
-    memory.set(char, i);
-
-    if (prevIndex === undefined) {
-      length++;
-      continue;
+  while (right < s.length) {
+    while (set.has(s[right])) {
+      set.delete(s[left]);
+      left++;
     }
 
-    maxLength = Math.max(length, maxLength);
-
-    for (const key of memory.keys()) {
-      if (memory.get(key) < prevIndex) {
-        memory.delete(key);
-      }
-    }
-
-    length = i - prevIndex;
+    set.add(s[right]);
+    max = Math.max(max, right - left + 1);
+    right++;
   }
 
-  return Math.max(length, maxLength);
+  return max;
 };
