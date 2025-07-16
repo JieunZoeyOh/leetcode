@@ -3,28 +3,33 @@
  * @return {number[][]}
  */
 const threeSum = (nums) => {
-  nums.sort((a, b) => a - b);
-  const result = [];
+  if (nums.length < 3) return [];
 
-  for (let i = 0; i < nums.length - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
-    if (nums[i] > 0) break;
+  const result = [];
+  const arr = nums.toSorted((a, b) => a - b);
+
+  for (let i = 0; i < arr.length - 2; i++) {
+    if (arr[i] === arr[i - 1]) continue; // 그 전과 같다면 중복되므로
+    if (arr[i] > 0) break; // 모든 수가 양수
 
     let left = i + 1;
-    let right = nums.length - 1;
+    let right = arr.length - 1;
 
     while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
+      const sum = arr[i] + arr[left] + arr[right];
 
-      if (sum === 0) {
-        result.push([nums[i], nums[left], nums[right]]);
-        while (left < right && nums[left] === nums[left + 1]) left++;
-        while (left < right && nums[right] === nums[right - 1]) right--;
-        left++;
+      if (sum > 0) {
         right--;
       } else if (sum < 0) {
         left++;
-      } else {
+      } else { // 0일 경우
+        result.push([arr[i], arr[left], arr[right]]);
+
+        while (arr[left] === arr[left + 1]) {
+          left++;
+        }
+
+        left++;
         right--;
       }
     }
