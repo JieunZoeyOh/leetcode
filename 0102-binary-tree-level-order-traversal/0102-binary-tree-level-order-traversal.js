@@ -11,16 +11,25 @@
  * @return {number[][]}
  */
 const levelOrder = (root) => {
-  const arr = [];
-  traverse(root, 0, arr);
-  return arr;
+  if (!root) return [];
+
+  const result = [];
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const size = queue.length;
+    const currentLevelNodes = [];
+
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      currentLevelNodes.push(node.val);
+
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+
+    result.push(currentLevelNodes);
+  }
+
+  return result;
 };
-
-const traverse = (node, index, arr) => {
-  if (!node) return;
-
-  arr[index] = [...(arr[index] || []), node.val];
-
-  traverse(node.left, index + 1, arr);
-  traverse(node.right, index + 1, arr);
-}
