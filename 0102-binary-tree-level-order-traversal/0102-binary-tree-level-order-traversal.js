@@ -11,21 +11,16 @@
  * @return {number[][]}
  */
 const levelOrder = (root) => {
-  const memory = [];
-  store(root, memory, 0);
-
-  return memory;
+  const arr = [];
+  traverse(root, 0, arr);
+  return arr;
 };
 
-const store = (node, memory, depth) => {
-  if (node === null) return;
+const traverse = (node, index, arr) => {
+  if (!node) return;
 
-  if (memory[depth]) {
-    memory[depth].push(node.val);  
-  } else {
-    memory[depth] = [node.val];
-  }
+  arr[index] = [...(arr[index] || []), node.val];
 
-  store(node.left, memory, depth + 1);
-  store(node.right, memory, depth + 1);
-};
+  traverse(node.left, index + 1, arr);
+  traverse(node.right, index + 1, arr);
+}
