@@ -1,8 +1,17 @@
+const truncateTowardZero = (result) =>
+  result < 0 ? Math.ceil(result) : Math.floor(result);
+
 const operators = {
-  "+": (a, b) => Number(a) + Number(b),
-  "-": (a, b) => Number(a) - Number(b),
-  "*": (a, b) => Number(a) * Number(b),
-  "/": (a, b) => Math.trunc(Number(a) / Number(b)),
+  "+": (x, y) => x + y,
+  "-": (x, y) => x - y,
+  "*": (x, y) => x * y,
+  "/": (x, y) => truncateTowardZero(x / y),
+};
+
+const calculate = (operator, x, y) => {
+  const operation = operators[operator];
+  if (!operation) throw new Error(`Invalid operator: ${operator}`);
+  return operation(x, y);
 };
 
 /**
@@ -10,18 +19,17 @@ const operators = {
  * @return {number}
  */
 const evalRPN = (tokens) => {
-  let pointer = 0;
-  const tokenList = [...tokens];
+  const stack = [];
 
-  while(tokenList.length > 1) {
-    if (operators[tokenList[pointer]]) {
-      const result = operators[tokenList[pointer]](tokenList[pointer - 2], tokenList[pointer - 1]);
-      tokenList.splice(pointer - 2, 3, result);
-      pointer--;
+  for (const token of tokens) {
+    if (isNaN(token)) {
+      const [x, y] = stack.splice(stack.length - 2);
+      const result = calculate(token, x, y);
+      stack.push(result);
     } else {
-      pointer++;
+      stack.push(Number(token));
     }
   }
 
-  return tokenList[0];
+  return stack.pop();
 };
