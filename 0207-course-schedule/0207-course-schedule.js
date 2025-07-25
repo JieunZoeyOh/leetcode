@@ -4,31 +4,38 @@
  * @return {boolean}
  */
 const canFinish = (numCourses, prerequisites) => {
-  const graph = new Array(numCourses).fill(0).map(() => []);
-  const visited = new Array(numCourses).fill(0);
+  const courseSchedules = Array.from ({ length: numCourses }, () => []);
+  const prereqCount = new Array(numCourses).fill(0);
 
   for (const [course, prereq] of prerequisites) {
-    graph[course].push(prereq);
+    courseSchedules[prereq].push(course);
+    prereqCount[course]++;
   }
 
-  const dfs = (course) => {
-    if (visited[course] === 1) return false;
-    if (visited[course] === 2) return true;
-
-    visited[course] = 1;
-
-    for (const prereq of graph[course]) {
-      if (!dfs(prereq)) return false;
-    }
-
-    visited[course] = 2;
-
-    return true;
-  };
+  const queue = [];
 
   for (let i = 0; i < numCourses; i++) {
-    if (!dfs(i)) return false;
+    if (prereqCount[i] === 0) {
+      queue.push(i);
+    }
   }
 
-  return true;
+  let finishedCount = 0;
+
+  while (queue.length > 0) {
+    finishedCount++;
+
+    const currentCourse = queue.shift();
+    const nextCourses = courseSchedules[currentCourse];
+
+    for (const nextCourse of nextCourses) {
+      prereqCount[nextCourse]--;
+
+      if (prereqCount[nextCourse] === 0) {
+        queue.push(nextCourse);
+      }
+    }
+  }
+
+  return finishedCount === numCourses;
 };
