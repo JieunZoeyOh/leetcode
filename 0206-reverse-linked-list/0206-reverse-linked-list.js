@@ -9,19 +9,17 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-const reverseList = function(head) {
-  if (!head) return head;
-  
-  let currentNode = head;
-  let nextNode = head.next;
-  currentNode.next = null;
+const reverseList = (head) => {
+  if (!head) return null;
 
-  while (nextNode) {
-    const temp = nextNode.next;
-    nextNode.next = currentNode;
-    currentNode = nextNode;
-    nextNode = temp;
-  }
-
-  return currentNode;
+  return reverse(head, null);
 };
+
+const reverse = (cur, prev) => {
+  const temp = cur.next;
+  cur.next = prev;
+  
+  if (!temp) return cur;
+  
+  return reverse(temp, cur);
+}
