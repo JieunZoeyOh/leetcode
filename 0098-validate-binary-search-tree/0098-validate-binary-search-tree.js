@@ -7,16 +7,12 @@
  * }
  */
 /**
- * @param {TreeNode} root
+ * @param {TreeNode} node
  * @return {boolean}
  */
-var isValidBST = function(root) {
-  return validate(-Infinity, Infinity, root);
-};
-
-const validate = (min, max, node) => {
+const isValidBST = (node, min = -Infinity, max = Infinity) => {
   if (!node) return true;
   if (!(min < node.val && node.val < max)) return false;
 
-  return validate(min, node.val, node.left) && validate(node.val, max, node.right);
+  return isValidBST(node.left, min, node.val) && isValidBST(node.right, node.val, max);
 };
