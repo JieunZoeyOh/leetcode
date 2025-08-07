@@ -2,18 +2,26 @@
  * @param {character[][]} grid
  * @return {number}
  */
-const numIslands = function(grid) {
-  if (!grid || grid.length === 0) return 0;
+const numIslands = (grid) => {
+  const rowLength = grid.length;
+  const columnLength = grid[0].length;
+  const visited = Array.from({ length: rowLength }, () => new Array(columnLength).fill("0"));
 
-  const m = grid.length;
-  const n = grid[0].length;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === "1") {
+        visited[i][j] = false;
+      }
+    }
+  }
+
   let count = 0;
 
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      if (grid[i][j] === "1") {
+  for (let i = 0; i < visited.length; i++) {
+    for (let j = 0; j < visited[0].length; j++) {
+      if (visited[i][j] === false) {
         count++;
-        dfs(grid, i, j);
+        dfs(i, j, visited);
       }
     }
   }
@@ -21,15 +29,17 @@ const numIslands = function(grid) {
   return count;
 };
 
-const dfs = function(grid, i, j) {
-  if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === "0") {
-    return;
+const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+
+const dfs = (i, j, arr) => {
+  arr[i][j] = true;
+
+  for (const [x, y] of directions) {
+    const [newX, newY] = [i + x, j + y];
+    if (0 <= newX && newX < arr.length && 0 <= newY && newY < arr[0].length) {
+      if (arr[newX][newY] === false) {
+        dfs(newX, newY, arr);
+      }
+    }
   }
-
-  grid[i][j] = "0";
-
-  dfs(grid, i + 1, j);
-  dfs(grid, i - 1, j);
-  dfs(grid, i, j + 1);
-  dfs(grid, i, j - 1);
 };
