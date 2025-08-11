@@ -1,44 +1,52 @@
+const DIRECTIONS = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+
 /**
  * @param {number[][]} grid
  * @return {number}
  */
 const orangesRotting = (grid) => {
-  const m = grid.length;
-  const n = grid[0].length;
+  const row = grid.length;
+  const column = grid[0].length;
 
-  const queue = [];
+  // -1: empty cell
+  // Infinity: fresh orange
+  // else: rotton time(<= 0)
+  const oranges = Array.from ({ length: row }, () => Array(column).fill(-1));
+  const rottenOrangesQueue = [];
+  let result = 0;
   let freshOranges = 0;
-  let minutes = 0;
 
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      if (grid[i][j] === 0) continue;
-
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < column; j++) {
       if (grid[i][j] === 1) {
+        oranges[i][j] = Infinity;
         freshOranges++;
-      } else {
-        queue.push([i, j, 0]);
+      } else if (grid[i][j] === 2) {
+        oranges[i][j] = 0;
+        rottenOrangesQueue.push([i, j]);
       }
     }
   }
 
-  const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  while (rottenOrangesQueue.length > 0) {
+    const [i, j] = rottenOrangesQueue.shift();
 
-  while (queue.length > 0) {
-    const [x, y, time] = queue.shift();
-    minutes = Math.max(minutes, time);
+    for (const [x, y] of DIRECTIONS){
+      const [newX, newY] = [i + x, j + y];
+      if (0 <= newX && newX < row && 0 <= newY && newY < column) {
+        if (oranges[newX][newY] === -1) continue;
 
-    for (const [dx, dy] of directions) {
-      const newX = x + dx;
-      const newY = y + dy;
-   
-      if (newX >= 0 && newX < m && newY >= 0 && newY < n && grid[newX][newY] === 1) {
-        grid[newX][newY] = 2;
-        queue.push([newX, newY, time + 1]);
-        freshOranges--;
+        if (oranges[i][j] + 1 < oranges[newX][newY]) {
+          if (oranges[newX][newY] === Infinity) {
+            freshOranges--;
+          }
+          oranges[newX][newY] = oranges[i][j] + 1;
+          result = Math.max(result, oranges[i][j] + 1);
+          rottenOrangesQueue.push([newX, newY]);
+        }
       }
     }
   }
 
-  return freshOranges === 0 ? minutes : -1;
+  return freshOranges ? -1 : result;
 };
