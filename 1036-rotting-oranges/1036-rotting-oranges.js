@@ -8,45 +8,43 @@ const orangesRotting = (grid) => {
   const row = grid.length;
   const column = grid[0].length;
 
-  // -1: empty cell
-  // Infinity: fresh orange
-  // else: rotton time(<= 0)
-  const oranges = Array.from ({ length: row }, () => Array(column).fill(-1));
-  const rottenOrangesQueue = [];
-  let result = 0;
+  const visited = Array.from ({ length: row }, () => Array(column).fill(false));
+  const queue = [];
+  let maxMinutes = 0;
   let freshOranges = 0;
 
   for (let i = 0; i < row; i++) {
     for (let j = 0; j < column; j++) {
-      if (grid[i][j] === 1) {
-        oranges[i][j] = Infinity;
+      if (grid[i][j] === 1) { // fresh orange
         freshOranges++;
-      } else if (grid[i][j] === 2) {
-        oranges[i][j] = 0;
-        rottenOrangesQueue.push([i, j]);
+      } else if (grid[i][j] === 2) { // rotten orange
+        visited[i][j] = true;
+        queue.push([i, j, 0]);
       }
     }
   }
 
-  while (rottenOrangesQueue.length > 0) {
-    const [i, j] = rottenOrangesQueue.shift();
+  if (freshOranges === 0) return 0;
 
-    for (const [x, y] of DIRECTIONS){
+  let head = 0;
+  while (head < queue.length) {
+    const [i, j, minutes] = queue[head++];
+    maxMinutes = Math.max(maxMinutes, minutes);
+
+    for (const [x, y] of DIRECTIONS) {
       const [newX, newY] = [i + x, j + y];
-      if (0 <= newX && newX < row && 0 <= newY && newY < column) {
-        if (oranges[newX][newY] === -1) continue;
 
-        if (oranges[i][j] + 1 < oranges[newX][newY]) {
-          if (oranges[newX][newY] === Infinity) {
-            freshOranges--;
-          }
-          oranges[newX][newY] = oranges[i][j] + 1;
-          result = Math.max(result, oranges[i][j] + 1);
-          rottenOrangesQueue.push([newX, newY]);
-        }
+      if (0 <= newX && newX < row &&
+        0 <= newY && newY < column &&
+        grid[newX][newY] === 1 &&
+        !visited[newX][newY]
+      ) {
+        visited[newX][newY] = true;
+        freshOranges--;
+        queue.push([newX, newY, minutes + 1]);
       }
     }
   }
 
-  return freshOranges ? -1 : result;
+  return freshOranges ? -1 : maxMinutes;
 };
