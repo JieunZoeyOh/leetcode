@@ -6,23 +6,23 @@
 const combinationSum = (candidates, target) => {
   const result = [];
 
-  const dfs = (start, remain, nums) => {
-    if (remain === 0) {
-      result.push([...nums]);
-      return;
-    } else if (remain < 0) {
+  const backtrack = (currentCombination, currentSum, startIndex) => {
+    if (currentSum === target) {
+      result.push(currentCombination);
       return;
     }
 
-    for (let i = start; i < candidates.length; i++) {
-      const num = candidates[i];
-      nums.push(num);
-      dfs(i, remain - num, nums);
-      nums.pop();
+    if (currentSum > target) {
+      return;
+    }
+
+    for (let i = startIndex; i < candidates.length; i++) {
+      const candidate = candidates[i];
+      backtrack([...currentCombination, candidate], currentSum + candidate, i);
     }
   };
 
-  dfs(0, target, []);
+  backtrack([], 0, 0);
 
   return result;
 };
