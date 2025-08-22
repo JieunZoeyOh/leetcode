@@ -3,25 +3,24 @@
  * @return {number[][]}
  */
 const merge = (intervals) => {
-  if (intervals.length === 1) return intervals;
-
   intervals.sort(([s1], [s2]) => s1 - s2);
-  
+  let [start, end] = intervals[0];
   const result = [];
-  const acc = intervals[0];
 
   for (let i = 1; i < intervals.length; i++) {
-    const [start, end] = intervals[i];
+    const [nextStart, nextEnd] = intervals[i];
 
-    if (acc[1] < start) {
-      result.push([...acc]);
-      acc[0] = start;
-      acc[1] = end;
+    if (end < nextStart) {
+      result.push([start, end]);
+      start = nextStart;
+      end = nextEnd;
     } else {
-      acc[1] = Math.max(acc[1], end);
+      start = Math.min(start, nextStart);
+      end = Math.max(end, nextEnd);
     }
   }
 
-  result.push([...acc]);
+  result.push([start, end]);
+
   return result;
 };
