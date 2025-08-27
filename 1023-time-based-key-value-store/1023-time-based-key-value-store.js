@@ -1,5 +1,6 @@
+
 const TimeMap = function() {
-  this.map = new Map();
+  this.store = new Map();
 };
 
 /** 
@@ -9,22 +10,11 @@ const TimeMap = function() {
  * @return {void}
  */
 TimeMap.prototype.set = function(key, value, timestamp) {
-  if (this.map.get(key)) {
-    const obj = this.map.get(key);
-    obj.arr[timestamp] = value;
-
-    if (obj.length < timestamp) {
-      obj.length = timestamp;
-    }
-  } else {
-    const obj = {
-      length: timestamp,
-      arr: [],
-    };
-
-    obj.arr[timestamp] = value;
-    this.map.set(key, obj);
+  if (!this.store.get(key)) {
+    this.store.set(key, []);
   }
+
+  this.store.get(key).push({ value, timestamp });
 };
 
 /** 
@@ -33,25 +23,34 @@ TimeMap.prototype.set = function(key, value, timestamp) {
  * @return {string}
  */
 TimeMap.prototype.get = function(key, timestamp) {
-  const obj = this.map.get(key);
-  if (obj) {
-    if (timestamp > obj.length) {
-      return obj.arr[obj.length];
-    }
+  let result = "";
 
-    for (let i = timestamp; i > 0; i--) {
-      if (obj.arr[i] === undefined) continue;
+  if (!this.store.get(key)) {
+    return result;
+  }
 
-      return obj.arr[i];
+  const list = this.store.get(key);
+  let left = 0;
+  let right = list.length - 1;
+  
+  while (left <= right) {
+    const mid = Math.floor(left + (right - left) / 2);
+    const { value: midValue, timestamp: midTimestamp } = list[mid];
+
+    if (midTimestamp <= timestamp) {
+      result = midValue;
+      left = mid + 1;
+    } else {
+      right = mid - 1;
     }
   }
 
-  return "";
+  return result;
 };
 
 /** 
  * Your TimeMap object will be instantiated and called as such:
  * var obj = new TimeMap()
- * obj.set(key, value, timestamp)
- * var param_2 = obj.get(key, timestamp)
+ * obj.set(key,value,timestamp)
+ * var param_2 = obj.get(key,timestamp)
  */
